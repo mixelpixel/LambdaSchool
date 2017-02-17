@@ -1,12 +1,13 @@
 # https://github.com/SunJieMing/python-minicamp-homework-2
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Hello World'
+    # return 'Hello World'
+    return render_template('home.html')
 
 @app.route('/birthday')
 def birthday():
