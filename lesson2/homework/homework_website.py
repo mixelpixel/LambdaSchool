@@ -36,6 +36,7 @@ def fav_foods():
                      'pizza',
                      'CHAWKLAT!!!!']
     return jsonify(list_of_foods)
+# https://greateatshawaii.blogspot.com/2013/12/peppas-korean-bbq-bi-bim-kook-soo.html
 
 # The following allows flask to automatically update changes
 if __name__ == '__main__':
