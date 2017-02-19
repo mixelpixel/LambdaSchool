@@ -29,9 +29,12 @@ def subtract(num1, num2):
 def multiply(num1, num2):
     return str(num1 * num2)
 
+# Flask jsonify: http://flask.pocoo.org/docs/0.12/api/#flask.json.jsonify
 @app.route('/fav_foods')
 def fav_foods():
-    list_of_foods = ['bi bim kook soo', 'pizza', 'CHAWKLAT!!!!']
+    list_of_foods = ['bi bim kook soo',
+                     'pizza',
+                     'CHAWKLAT!!!!']
     return jsonify(list_of_foods)
 
 # The following allows flask to automatically update changes
