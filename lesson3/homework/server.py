@@ -31,7 +31,7 @@ def addfood():
         message = "Yum! Food successfuly added"
     except:
         connection.rollback()
-        message = "Barf! Error with food insertion operation"
+        message = "Barf! Error w/food insertion operation"
     finally:
         return render_template('result.html', message = message)
         connection.close()
