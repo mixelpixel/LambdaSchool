@@ -9,8 +9,28 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
+@app.route('/enternew')
+def enternew():
+    return render_template('food.html')
 
+@app.route('/addrecord', methods = ['POST'])
+def addrecord():
+    connection = sqlite3.connect('database.db')
+    # cursor lets us write in the database
+    cursor = connection.cursor()
 
+    try:
+        title = request.form['title']
+        post = request.form['post']
+        cursor.execute('INSERT INTO posts (title,post) VALUES (?,?)', (title,post))
+        connection.commit()
+        message = "Record successfuly added"
+    except:
+        connection.rollback()
+        message = "error in insert operation"
+    finally:
+        return render_template('result.html', message = message)
+        connection.close()
 
 @app.route('/search', methods = ['GET'])
 def search():
