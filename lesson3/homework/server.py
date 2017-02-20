@@ -1,6 +1,6 @@
 # https://github.com/SunJieMing/python-minicamp-homework-3
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import sqlite3
 
 app = Flask(__name__)
@@ -35,6 +35,20 @@ def addfood():
     finally:
         return render_template('result.html', message = message)
         connection.close()
+
+@app.route('/favorite')
+def favorite():
+    connection = sqlite3.connect('database.db')
+    cursor = connection.cursor()
+    try:
+    	cursor.execute('SELECT * FROM foods Where name="mango"')
+    	connection.commit()
+    	fav = cursor.fetchone()
+    except:
+    	fav = ('Did you forget to add mango?')
+    finally:
+    	return jsonify(fav)
+    	connection.close()
 
 @app.route('/search', methods = ['GET'])
 def search():
