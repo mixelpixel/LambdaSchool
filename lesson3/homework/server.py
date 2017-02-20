@@ -13,44 +13,29 @@ def home():
 def enternew():
     return render_template('food.html')
 
-@app.route('/addrecord', methods = ['POST'])
-def addrecord():
+@app.route('/addfood', methods = {'POST'})
+def addfood():
     connection = sqlite3.connect('database.db')
-    # cursor lets us write in the database
     cursor = connection.cursor()
-
     try:
-        title = request.form['title']
-        post = request.form['post']
-        cursor.execute('INSERT INTO posts (title,post) VALUES (?,?)', (title,post))
+        name = request.form['name']
+        calories = request.form['calories']
+        cuisine = request.form['cuisine']
+        is_vegetarian = request.form['is_vegetarian']
+        is_gluten_free = request.form['is_gluten_free']
+        cursor.execute('INSERT INTO foods (name,calories,cuisine,is_vegetarian,is_gluten_free) VALUES (?,?,?,?,?)',(name,calories,cuisine,is_vegetarian,is_gluten_free))
         connection.commit()
-        message = "Record successfuly added"
+        message = "Yum! Food successfuly added"
     except:
         connection.rollback()
-        message = "error in insert operation"
+        message = "Barf! Error with food insertion operation"
     finally:
         return render_template('result.html', message = message)
         connection.close()
 
 @app.route('/search', methods = ['GET'])
 def search():
-    # connection = sqlite3.connect('database.db')
-    # # cursor lets us write in the database
-    # cursor = connection.cursor()
-    #
-    # try:
-    #     title = request.form['title']
-    #     post = request.form['post']
-    #     cursor.execute('INSERT INTO posts (title,post) VALUES (?,?)', (title,post))
-    #     connection.commit()
-    #     message = "Record successfuly added"
-    # except:
-    #     connection.rollback()
-    #     message = "error in insert operation"
-    # finally:
-    #     return render_template('result.html', message = message)
-    #     connection.close()
     return
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)
