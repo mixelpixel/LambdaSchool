@@ -54,5 +54,9 @@ def favorite():
 def search():
     return
 
+@app.route('/drop')
+def drop():
+    return
+
 if __name__ == '__main__':
     app.run(debug=True)
