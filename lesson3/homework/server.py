@@ -68,7 +68,18 @@ def search():
 
 @app.route('/drop')
 def drop():
-    return
+    connection = sqlite3.connect('database.db')
+    cursor = connection.cursor()
+    try:
+        cursor.execute('DROP TABLE foods')
+        connection.commit()
+        drop_result = ('You dropped the table!')
+    except:
+        connection.rollback()
+        drop_result = ('Did you DROP the ball?')
+    finally:
+        return render_template('result.html', message = drop_result)
+        connection.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
