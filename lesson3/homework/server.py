@@ -52,7 +52,19 @@ def favorite():
 
 @app.route('/search', methods = ['GET'])
 def search():
-    return
+    connection = sqlite3.connect('database.db')
+    cursor = connection.cursor()
+    try:
+        name = (request.args.get('name'),)
+        cursor.execute('SELECT * FROM foods Where name=?', name)
+        connection.commit()
+        search_result = cursor.fetchone()
+    except:
+        search_result = ('what the effing eff?')
+    finally:
+        return jsonify(search_result)
+        connection.close()
+
 
 @app.route('/drop')
 def drop():
