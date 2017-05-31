@@ -55,7 +55,6 @@ def search():
     connection = sqlite3.connect('database.db')
     cursor = connection.cursor()
     try:
-        name = (request.args.get('name'),)
         cursor.execute('SELECT * FROM foods Where name=?', name)
         connection.commit()
         search_result = cursor.fetchone()
